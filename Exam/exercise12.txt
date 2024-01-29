@@ -1,0 +1,91 @@
+go to https://rest.ensembl.org/
+1) searcht on gene 
+found: GET overlap/region/:species/:region 	Retrieves features (e.g. genes, transcripts, variants and more) that overlap a given region.
+than found curl: https://rest.ensembl.org/overlap/region/human/7:140424943-140624564?feature=gene;feature=transcript;feature=cds;feature=exon
+
+edit: 
+curl 'http://rest.ensembl.org/overlap/region/human/11:5225460-5225470?feature=gene;feature=transcript;feature=cds;feature=exon' -H 'Content-type:text/x-gff3' >> exercise12.txt
+
+execute: 
+
+##gff-version 3
+##sequence-region   11 5225460 5225470
+11	havana	gene	5224309	5225461	.	-	.	ID=gene:ENSG00000285498;assembly_name=GRCh38;biotype=TEC;description=TEC;gene_id=ENSG00000285498;logic_name=havana_homo_sapiens;version=1
+11	ensembl_havana	gene	5225464	5229395	.	-	.	ID=gene:ENSG00000244734;Name=HBB;assembly_name=GRCh38;biotype=protein_coding;description=hemoglobin subunit beta [Source:HGNC Symbol%3BAcc:HGNC:4827];gene_id=ENSG00000244734;logic_name=ensembl_havana_gene_homo_sapiens;version=4
+11	havana	unconfirmed_transcript	5224309	5225461	.	-	.	ID=transcript:ENST00000644706;Parent=gene:ENSG00000285498;assembly_name=GRCh38;biotype=TEC;logic_name=havana_homo_sapiens;tag=basic;transcript_id=ENST00000644706;version=1
+11	ensembl_havana	mRNA	5225464	5227071	.	-	.	ID=transcript:ENST00000335295;Name=HBB-201;Parent=gene:ENSG00000244734;assembly_name=GRCh38;biotype=protein_coding;ccdsid=CCDS7753.1;logic_name=ensembl_havana_transcript_homo_sapiens;tag=basic;transcript_id=ENST00000335295;transcript_support_level=1;version=4
+11	ensembl_havana	mRNA	5225464	5227197	.	-	.	ID=transcript:ENST00000647020;Name=HBB-206;Parent=gene:ENSG00000244734;assembly_name=GRCh38;biotype=protein_coding;ccdsid=CCDS7753.1;logic_name=ensembl_havana_transcript_homo_sapiens;tag=basic;transcript_id=ENST00000647020;version=1
+11	havana	mRNA	5225467	5227071	.	-	.	ID=transcript:ENST00000633227;Name=HBB-205;Parent=gene:ENSG00000244734;assembly_name=GRCh38;biotype=nonsense_mediated_decay;logic_name=havana_homo_sapiens;transcript_id=ENST00000633227;transcript_support_level=3;version=1
+11	ensembl_havana	CDS	5226930	5227021	.	-	0	ID=CDS:ENSP00000333994;Parent=transcript:ENST00000335295;assembly_name=GRCh38;protein_id=ENSP00000333994
+11	ensembl_havana	CDS	5226577	5226799	.	-	1	ID=CDS:ENSP00000333994;Parent=transcript:ENST00000335295;assembly_name=GRCh38;protein_id=ENSP00000333994
+11	ensembl_havana	CDS	5225598	5225726	.	-	0	ID=CDS:ENSP00000333994;Parent=transcript:ENST00000335295;assembly_name=GRCh38;protein_id=ENSP00000333994
+11	ensembl_havana	CDS	5226930	5227021	.	-	0	ID=CDS:ENSP00000494175;Parent=transcript:ENST00000647020;assembly_name=GRCh38;protein_id=ENSP00000494175
+11	ensembl_havana	CDS	5226577	5226799	.	-	1	ID=CDS:ENSP00000494175;Parent=transcript:ENST00000647020;assembly_name=GRCh38;protein_id=ENSP00000494175
+11	ensembl_havana	CDS	5225598	5225726	.	-	0	ID=CDS:ENSP00000494175;Parent=transcript:ENST00000647020;assembly_name=GRCh38;protein_id=ENSP00000494175
+11	havana	CDS	5226946	5227021	.	-	0	ID=CDS:ENSP00000488004;Parent=transcript:ENST00000633227;assembly_name=GRCh38;protein_id=ENSP00000488004
+11	havana	CDS	5226708	5226799	.	-	2	ID=CDS:ENSP00000488004;Parent=transcript:ENST00000633227;assembly_name=GRCh38;protein_id=ENSP00000488004
+11	havana	exon	5224309	5225461	.	-	.	Name=ENSE00003831214;Parent=transcript:ENST00000644706;assembly_name=GRCh38;constitutive=1;ensembl_end_phase=-1;ensembl_phase=-1;exon_id=ENSE00003831214;rank=1;version=1
+11	ensembl_havana	exon	5225464	5225726	.	-	.	Name=ENSE00001600613;Parent=transcript:ENST00000335295;assembly_name=GRCh38;constitutive=0;ensembl_end_phase=-1;ensembl_phase=0;exon_id=ENSE00001600613;rank=3;version=2
+11	ensembl_havana	exon	5225464	5225726	.	-	.	Name=ENSE00001600613;Parent=transcript:ENST00000647020;assembly_name=GRCh38;constitutive=0;ensembl_end_phase=-1;ensembl_phase=0;exon_id=ENSE00001600613;rank=3;version=2
+11	havana	exon	5225467	5225726	.	-	.	Name=ENSE00003781733;Parent=transcript:ENST00000633227;assembly_name=GRCh38;constitutive=0;ensembl_end_phase=-1;ensembl_phase=-1;exon_id=ENSE00003781733;rank=3;version=1
+
+2) search on variant
+use POST because multiple rs. 
+search latin name zebrafish in ensembl: danio_rerio
+found curl: 
+curl 'https://rest.ensembl.org/variation/homo_sapiens' -H 'Content-type:application/json' \
+-H 'Accept:application/json' -X POST -d '{ "ids" : ["rs56116432", "COSM476" ] }'
+
+edit: 
+curl 'https://rest.ensembl.org/variation/danio_rerio' -H 'Content-type:application/xml' \
+-H 'Accept:application/xml' -X POST -d '{ "ids" : ["rs505088789", "rs499640072" ] }' >> exercise12.txt
+
+execute: 
+<html><title>EnsEMBL::REST</title><body><pre>--- 
+rs499640072: 
+  MAF: ~
+  ambiguity: R
+  evidence: []
+
+  mappings: 
+    - 
+      allele_string: A/G
+      ancestral_allele: ~
+      assembly_name: GRCz11
+      coord_system: chromosome
+      end: 183006
+      location: 2:183006-183006
+      seq_region_name: 2
+      start: 183006
+      strand: 1
+  minor_allele: ~
+  most_severe_consequence: intron_variant
+  name: rs499640072
+  source: Short variant data imported from EVA
+  synonyms: []
+
+  var_class: SNP
+rs505088789: 
+  MAF: ~
+  ambiguity: R
+  evidence: []
+
+  mappings: 
+    - 
+      allele_string: G/A
+      ancestral_allele: ~
+      assembly_name: GRCz11
+      coord_system: chromosome
+      end: 184195
+      location: 2:184195-184195
+      seq_region_name: 2
+      start: 184195
+      strand: 1
+  minor_allele: ~
+  most_severe_consequence: upstream_gene_variant
+  name: rs505088789
+  source: Short variant data imported from EVA
+  synonyms: []
+
+  var_class: SNP
+</pre></body></html>

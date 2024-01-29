@@ -1,0 +1,24 @@
+1)
+Meteorites> db.meteorites.aggregate([{$sort:{mass:-1}},{$skip:3},{$limit:1}])
+[
+  {
+    _id: ObjectId('65b38db7722fd0b185ead410'),
+    name: 'Norton County',
+    id: 17922,
+    nametype: 'Valid',
+    recclass: 'Aubrite',
+    mass: 1100000,
+    fall: 'Fell',
+    year: ISODate('1948-01-01T00:00:00.000Z'),
+    geolocation: { type: 'Point', coordinates: [ -99.86667, 39.68333 ] },
+    ':@computed_region_cbhk_fwbd': '17',
+    ':@computed_region_nnqa_25f4': '1252'
+  }
+]
+
+2)
+Meteorites> db.meteorites.aggregate([{$group:{_id: { geolocation : "$geolocation" }}},{$eq:{"geolocation.type":"Point"}},{$count:{}],)
+
+3)
+Meteorites> db.meteorites.aggregate([{$or:[{fall:{$exists: null}},{$eq:{recclass:"Unknown"}}]}],{name:1, mass:1, geolocation.coordinates:1, _id:0})
+

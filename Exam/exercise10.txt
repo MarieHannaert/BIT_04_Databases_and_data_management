@@ -1,0 +1,21 @@
+1) 
+
+MariaDB [movies]> select movies.name, movies.overview, round(budget/revenue*100, 2) as ROB from movies join crew_movie on crew_movie.movie_id=movies.id join crew on crew_movie.crew_id=crew.id where crew.name="Cameron Diaz" and movies.release_date like "2001%" order by ROB desc limit 1;
++-------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
+| name        | overview                                                                                                                                                                                                                                                                                                        | ROB   |
++-------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
+| Vanilla Sky | David Aames has it all: wealth, good looks and gorgeous women on his arm. But just as he begins falling for the warmhearted Sofia, his face is horribly disfigured in a car accident. That's just the beginning of his troubles as the lines between illusion and reality, between life and death, are blurred. | 34.53 |
++-------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------+
+1 row in set (0.021 sec)
+
+2) 
+
+MariaDB [movies]> select genres.name, avg(movies.budget) as avg_budget, count(movies.id) as number_of_movies, sum(movies.budget) as total_budget_genre, stddev("total_budget_genre") as stddev_from_total_budget from movies join genres_movie on genres_movie.movie_id=movies.id join genres on genres.id=genres_movie.genre_id where score > 50 group by genres.name having number_of_movies > 500 limit 1;
++--------+-------------------+------------------+--------------------+--------------------------+
+| name   | avg_budget        | number_of_movies | total_budget_genre | stddev_from_total_budget |
++--------+-------------------+------------------+--------------------+--------------------------+
+| Action | 70876760.47906776 |             2317 |       164221454030 |                        0 |
++--------+-------------------+------------------+--------------------+--------------------------+
+1 row in set, 2333 warnings (0.008 sec)
+
+

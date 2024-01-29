@@ -1,0 +1,19 @@
+UNF 
+	DB(Order ID, Sales Person ID, Sales Person name, Customer ID, Customer Name, State, Product ID, Product Name, Amount)
+------------------------------------------------------------------------------------------------
+1NF
+	DB(*Order ID*, Sales Person ID, Sales Person name, Customer ID, Customer Name, State, *Product ID*, Product Name, Amount)
+--------------------------------------------------------------------------------------------------
+2NF 
+	ORDER_PRODUCT_DB(*Order ID*, *Product ID*, Amount)
+	
+	ORDER_DB(*Order ID*, Sales Person ID, Sales Person name, Customer ID, Customer Name, State)
+	PRODUCT_DB(*Product ID*, Product Name)
+-------------------------------------------------------------------------------------------------
+3NF 
+	ORDER_PRODUCT_DB(*Order ID*, *Product ID*, Amount)
+	
+	ORDER_DB(*Order ID*, Sales Person ID, Customer ID)
+	PRODUCT_DB(*Product ID*, Product Name)
+	SALES_PERSON_DB(*Sales Person ID*, Sales Person name,)
+	CUSTOMER_DB(*Customer ID*, Customer Name, State)
